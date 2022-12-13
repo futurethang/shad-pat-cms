@@ -1,0 +1,22 @@
+.show {
+
+  h2 {
+    color: yellow
+  }
+
+  .date {
+    color: yellow
+  }
+  
+  img {
+    max-width: 300px;
+  }
+}
+
+.shows {
+  // margin: 2rem 12rem;
+  width: 80vw;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 2rem
+}

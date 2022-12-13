@@ -5,16 +5,20 @@ import {
   useSupabaseClient,
   Session,
 } from '@supabase/auth-helpers-react'
-import { Database } from '../utils/database.types'
-type Profiles = Database['public']['Tables']['profiles']['Row']
+import ShowForm from './ShowForm'
+type Profiles = {
+  username: string
+  website: string
+  avatar_url: string
+}
 
 export default function Account({ session }: { session: Session }) {
-  const supabase = useSupabaseClient<Database>()
+  const supabase = useSupabaseClient()
   const user = useUser()
   const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState<Profiles['username']>(null)
-  const [website, setWebsite] = useState<Profiles['website']>(null)
-  const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
+  const [username, setUsername] = useState<Profiles['username']>('')
+  const [website, setWebsite] = useState<Profiles['website']>('')
+  const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>('')
 
   useEffect(() => {
     getProfile()
@@ -83,7 +87,7 @@ export default function Account({ session }: { session: Session }) {
   return (
     <div className="form-widget">
       <Avatar
-        uid={user.id}
+        uid={user!.id}
         url={avatar_url}
         size={150}
         onUpload={(url) => {
@@ -131,6 +135,10 @@ export default function Account({ session }: { session: Session }) {
         >
           Sign Out
         </button>
+      </div>
+
+      <div className="add-show">
+        <ShowForm session={session}></ShowForm>
       </div>
     </div>
   )
