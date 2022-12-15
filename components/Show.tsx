@@ -10,11 +10,9 @@ export default function Show({ show }) {
 
   useEffect(() => {
     downloadImage(show.posterURL)
-    console.log('get show records')
   }, [])
 
   async function downloadImage(path: string) {
-    console.log(path)
     try {
       if (!path) return
 

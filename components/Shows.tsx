@@ -19,7 +19,6 @@ export default function Shows() {
 
   useEffect(() => {
     getShows()
-    console.log('get show records')
   }, [])
 
   async function getShows() {
@@ -39,12 +38,18 @@ export default function Shows() {
     }
   }
 
+  const parseDate = (date: string) => {
+    const dateNums = date.split('-')
+    return dateNums.map((i) => parseInt(i))
+  }
+
   function futureShows() {
     return (
       <div className={styles.shows}>
         {shows.length > 0 ? (
           shows.map((show) => {
-            return new Date(show.showDate) > new Date() ? (
+            const [y, m, d] = parseDate(show.showDate)
+            return new Date(y, m, d) >= new Date() ? (
               <Show key={show.id} show={show}></Show>
             ) : null
           })
@@ -56,9 +61,9 @@ export default function Shows() {
   }
 
   function pastShows() {
-    console.log('hey')
     return shows.map((show) => {
-      return new Date(show.showDate) < new Date() ? (
+      const [y, m, d] = parseDate(show.showDate)
+      return new Date(y, m, d) < new Date() ? (
         <Show key={show.id} show={show}></Show>
       ) : null
     })
@@ -68,7 +73,6 @@ export default function Shows() {
     <div>
       <h1>UPCOMING SHOWS</h1>
       {futureShows()}
-
       <div className={styles.shows}>
         <h1>PAST SHOWS</h1>
         {pastShows()}
