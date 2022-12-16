@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import Show from './Show'
 import styles from '../styles/Show.module.scss'
+import { parseDate } from '../utils/dates';
 
 export interface Show {
   showDate: string
@@ -42,10 +43,12 @@ export default function Shows() {
     }
   }
 
-  const parseDate = (date: string) => {
-    const dateNums = date.split('-')
-    return dateNums.map((i) => parseInt(i))
-  }
+  // const parseDate = (date: string) => {
+  //   const dateNums = date.split('-')
+  //   const parsed = dateNums.map((i) => parseInt(i))
+  //   parsed[1]--
+  //   return parsed
+  // }
 
   function futureShows() {
     return (
@@ -53,6 +56,12 @@ export default function Shows() {
         {shows.length > 0 ? (
           shows.map((show) => {
             const [y, m, d] = parseDate(show.showDate)
+            console.log(
+              show.venue,
+              show.showDate,
+              new Date(y, m, d),
+              new Date(),
+            )
             return new Date(y, m, d) >= new Date() ? (
               <Show key={show.id} show={show}></Show>
             ) : null
@@ -65,22 +74,25 @@ export default function Shows() {
   }
 
   function pastShows() {
-    return shows.map((show) => {
-      const [y, m, d] = parseDate(show.showDate)
-      return new Date(y, m, d) < new Date() ? (
-        <Show key={show.id} show={show}></Show>
-      ) : null
-    })
+    return (
+      <div className={styles.shows}>
+        {shows.map((show) => {
+          const [y, m, d] = parseDate(show.showDate)
+          console.log(new Date(y, m, d), new Date())
+          return new Date(y, m, d) < new Date() ? (
+            <Show key={show.id} show={show}></Show>
+          ) : null
+        })}
+      </div>
+    )
   }
 
   return (
     <div>
       <h1>UPCOMING SHOWS</h1>
       {futureShows()}
-      <div className={styles.shows}>
-        <h1>PAST SHOWS</h1>
-        {pastShows()}
-      </div>
+      <h1>PAST SHOWS</h1>
+      {pastShows()}
     </div>
   )
 }

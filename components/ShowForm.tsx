@@ -105,7 +105,7 @@ export default function ShowForm({
       posterURL,
       link,
     }
-    debugger;
+
     try {
       const { data: responseData, error } = await supabase
         .from('shows')

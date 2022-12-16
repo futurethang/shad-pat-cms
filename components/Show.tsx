@@ -3,6 +3,7 @@ import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import styles from '../styles/Show.module.scss'
 import ShowForm from './ShowForm'
 import { Show } from './Shows'
+import { readableDate } from '../utils/dates'
 
 export default function ShowInstance({ show }: { show: Show }) {
   const session = useSession()
@@ -40,17 +41,23 @@ export default function ShowInstance({ show }: { show: Show }) {
   return (
     <div className={styles.show}>
       <img className={styles.img} src={posterImgURL} alt={show.posterURL} />
+      <h3 className={styles.date}>{readableDate(show.showDate)}</h3>
       <h2>
         <a href={show.link} target="blank">
           {show.venue}
         </a>
       </h2>
       <h4>{show.address}</h4>
-      <h3 className={styles.date}>{show.showDate}</h3>
       <h3>{show.bands}</h3>
-      {session ? <button onClick={() => updateShow()}>{showUpdateForm ? 'close' : 'edit'}</button> : null}
+      {session ? (
+        <button onClick={() => updateShow()}>
+          {showUpdateForm ? 'close' : 'edit'}
+        </button>
+      ) : null}
       {/* todo: the form needs to appear with the current date already inside it */}
-      {showUpdateForm ? <ShowForm session={session!} edit data={show}></ShowForm> : null}
+      {showUpdateForm ? (
+        <ShowForm session={session!} edit data={show}></ShowForm>
+      ) : null}
     </div>
   )
 }
