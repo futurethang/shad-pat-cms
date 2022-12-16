@@ -5,20 +5,29 @@ import {
   useSupabaseClient,
   Session,
 } from '@supabase/auth-helpers-react'
+import { Show } from './Shows'
 // type Profiles = Database['public']['Tables']['profiles']['Row']
 
-export default function ShowForm({ session }: { session: Session }) {
+export default function ShowForm({
+  session,
+  edit,
+  data,
+}: {
+  session: Session
+  edit: boolean
+  data: Show | undefined
+}) {
   const supabase = useSupabaseClient()
   const user = useUser()
 
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
-  const [showDate, setDate] = useState(Date)
-  const [venue, setVenue] = useState('')
-  const [address, setAddress] = useState('')
-  const [link, setLink] = useState('')
-  const [bands, setBands] = useState('')
-  const [posterURL, setPosterURL] = useState('')
+  const [showDate, setDate] = useState(data?.showDate || Date)
+  const [venue, setVenue] = useState(data?.venue || '')
+  const [address, setAddress] = useState(data?.address || '')
+  const [link, setLink] = useState(data?.link || '')
+  const [bands, setBands] = useState(data?.bands || '')
+  const [posterURL, setPosterURL] = useState(data?.posterURL || '')
 
   async function addShow({
     showDate,
@@ -87,10 +96,36 @@ export default function ShowForm({ session }: { session: Session }) {
     }
   }
 
+  async function updateShow() {
+    const newShow = {
+      showDate: new Date(showDate),
+      venue,
+      address,
+      bands: bands.split(','),
+      posterURL,
+      link,
+    }
+    debugger;
+    try {
+      const { data: responseData, error } = await supabase
+        .from('shows')
+        .update(newShow)
+        .eq('id', data?.id)
+        .select()
+
+      if (error) {
+        throw error
+      }
+      console.log(responseData)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div className="form-widget">
       <div className="add-show">
-        <h2>Add a Show</h2>
+        <h2>{!edit ? `Add a` : `Edit `} Show</h2>
         <form id="add-show">
           <label htmlFor="date">Date</label>
           <br />
@@ -153,15 +188,27 @@ export default function ShowForm({ session }: { session: Session }) {
             onChange={(e) => setLink(e.target.value)}
           />
           <br />
-          <button
-            type="submit"
-            onClick={(e) => {
-              e.preventDefault()
-              addShow({ showDate, venue, address, bands, posterURL, link })
-            }}
-          >
-            Add Show
-          </button>
+          {!edit ? (
+            <button
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault()
+                addShow({ showDate, venue, address, bands, posterURL, link })
+              }}
+            >
+              Add Show
+            </button>
+          ) : (
+            <button
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault()
+                updateShow()
+              }}
+            >
+              Edit Show
+            </button>
+          )}
         </form>
       </div>
     </div>

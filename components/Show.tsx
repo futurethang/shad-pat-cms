@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import styles from '../styles/Show.module.scss'
+import ShowForm from './ShowForm'
+import { Show } from './Shows'
 
-// @ts-ignore
-export default function Show({ show }) {
+export default function ShowInstance({ show }: { show: Show }) {
+  const session = useSession()
   const supabase = useSupabaseClient()
-  const [shows, setShows] = useState([])
   const [posterImgURL, setPosterImgURL] = useState('')
+  const [showUpdateForm, setShowUpdateForm] = useState(false)
 
   useEffect(() => {
     downloadImage(show.posterURL)
@@ -31,6 +33,10 @@ export default function Show({ show }) {
     }
   }
 
+  async function updateShow() {
+    setShowUpdateForm(!showUpdateForm)
+  }
+
   return (
     <div className={styles.show}>
       <img className={styles.img} src={posterImgURL} alt={show.posterURL} />
@@ -42,6 +48,9 @@ export default function Show({ show }) {
       <h4>{show.address}</h4>
       <h3 className={styles.date}>{show.showDate}</h3>
       <h3>{show.bands}</h3>
+      {session ? <button onClick={() => updateShow()}>{showUpdateForm ? 'close' : 'edit'}</button> : null}
+      {/* todo: the form needs to appear with the current date already inside it */}
+      {showUpdateForm ? <ShowForm session={session!} edit data={show}></ShowForm> : null}
     </div>
   )
 }

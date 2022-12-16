@@ -3,7 +3,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import Show from './Show'
 import styles from '../styles/Show.module.scss'
 
-export type Show = {
+export interface Show {
   showDate: string
   venue: string
   address: string
@@ -30,6 +30,10 @@ export default function Shows() {
       }
 
       if (data) {
+        data.sort((a, b) => {
+          return parseDate(a.showDate) > parseDate(b.showDate) ? 1 : -1
+        })
+
         setShows(data)
       }
     } catch (error) {
