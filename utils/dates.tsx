@@ -10,3 +10,8 @@ export const readableDate = (date: string) => {
     const trueDate = new Date(y, m, d)
     return trueDate.toLocaleDateString()
 }
+
+export const sortableDate = (date: string) => {
+    const [y, m, d] = parseDate(date)
+    return new Date(y, m, d)
+}

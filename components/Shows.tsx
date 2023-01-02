@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import Show from './Show'
 import styles from '../styles/Show.module.scss'
-import { parseDate } from '../utils/dates';
+import { parseDate, readableDate, sortableDate } from '../utils/dates'
 
 export interface Show {
   showDate: string
@@ -17,6 +17,8 @@ export interface Show {
 export default function Shows() {
   const supabase = useSupabaseClient()
   const [shows, setShows] = useState<Show[]>([])
+  const [futureShows, setFutureShows] = useState<Show[]>([])
+  const [pastShows, setPastShows] = useState<Show[]>([])
 
   useEffect(() => {
     getShows()
@@ -32,10 +34,16 @@ export default function Shows() {
 
       if (data) {
         data.sort((a, b) => {
-          return parseDate(a.showDate) > parseDate(b.showDate) ? 1 : -1
+          return sortableDate(a.showDate) > sortableDate(b.showDate) ? 1 : -1
         })
-
-        setShows(data)
+        const futureShows = data.filter(
+          (d) => sortableDate(d.showDate) > new Date(),
+        )
+        const pastShows = data.filter(
+          (d) => sortableDate(d.showDate) < new Date(),
+        )
+        setFutureShows(futureShows)
+        setPastShows(pastShows.reverse())
       }
     } catch (error) {
       setShows([])
@@ -43,28 +51,16 @@ export default function Shows() {
     }
   }
 
-  // const parseDate = (date: string) => {
-  //   const dateNums = date.split('-')
-  //   const parsed = dateNums.map((i) => parseInt(i))
-  //   parsed[1]--
-  //   return parsed
-  // }
+  const futureShowList = () => {
+    return shows
+  }
 
-  function futureShows() {
+  function futureShowsRender() {
     return (
       <div className={styles.shows}>
-        {shows.length > 0 ? (
-          shows.map((show) => {
-            const [y, m, d] = parseDate(show.showDate)
-            console.log(
-              show.venue,
-              show.showDate,
-              new Date(y, m, d),
-              new Date(),
-            )
-            return new Date(y, m, d) >= new Date() ? (
-              <Show key={show.id} show={show}></Show>
-            ) : null
+        {futureShows.length > 0 ? (
+          futureShows.map((show) => {
+            return <Show key={show.id} show={show}></Show>
           })
         ) : (
           <h2>No Shows</h2>
@@ -73,15 +69,11 @@ export default function Shows() {
     )
   }
 
-  function pastShows() {
+  function pastShowsRender() {
     return (
       <div className={styles.shows}>
-        {shows.map((show) => {
-          const [y, m, d] = parseDate(show.showDate)
-          console.log(new Date(y, m, d), new Date())
-          return new Date(y, m, d) < new Date() ? (
-            <Show key={show.id} show={show}></Show>
-          ) : null
+        {pastShows.map((show) => {
+          return <Show key={show.id} show={show}></Show>
         })}
       </div>
     )
@@ -89,10 +81,10 @@ export default function Shows() {
 
   return (
     <div>
-      <h1>UPCOMING SHOWS</h1>
-      {futureShows()}
-      <h1>PAST SHOWS</h1>
-      {pastShows()}
+      <h1 id="shows">UPCOMING SHOWS</h1>
+      {futureShowsRender()}
+      <h1 id="past-shows">PAST SHOWS</h1>
+      {pastShowsRender()}
     </div>
   )
 }

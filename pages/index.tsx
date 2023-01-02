@@ -1,37 +1,27 @@
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
-import Shows from '../components/Shows';
-import styles from "../styles/Home.module.scss"
+import { Footer, Nav } from '../components'
+import Shows from '../components/Shows'
+import styles from '../styles/Home.module.scss'
+import Socials from '../components/Socials';
 
 const Home = () => {
-  const session = useSession()
-  const supabase = useSupabaseClient()
-
-  const [adminOpen, setAdminOpen] = useState(false)
-
   return (
     <div className={styles.container}>
-      
+      <Nav />
       <header className={styles.header}>
         <h1>
           <img src="./shadpattwhtonblack.png" alt="Shadow Pattern" />
         </h1>
-        <h3>Seattle WA</h3>
+        <h3>Seattle Rock & Roll Band</h3>
       </header>
+      <Socials />
       <main>
         <div className="shows">
           <Shows></Shows>
         </div>
       </main>
-
-      <footer>
-        <div>
-          <a className="email" href="mailto:shadowpatternband@gmail.com">
-            email
-          </a>
-        </div>
-        <div>copyright © 2022 Shadow Pattern</div>
-      </footer>
+      <Footer />
     </div>
   )
 }
