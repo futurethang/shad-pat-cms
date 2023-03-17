@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import styles from '../styles/Show.module.scss'
+// import styles from '../styles/Show.module.scss'
 import ShowForm from './ShowForm'
-import { Show } from './Shows'
+import { Show } from './UpcomingShows'
 import { readableDate } from '../utils/dates'
 
 export default function ShowInstance({ show }: { show: Show }) {
@@ -39,9 +39,9 @@ export default function ShowInstance({ show }: { show: Show }) {
   }
 
   return (
-    <div className={styles.show}>
-      <img className={styles.img} src={posterImgURL} alt={show.posterURL} />
-      <h3 className={styles.date}>{readableDate(show.showDate)}</h3>
+    <div className='show'>
+      <img className='img' src={posterImgURL} alt={show.posterURL} />
+      <h3 className='date'>{readableDate(show.showDate)}</h3>
       <h2>
         <a href={show.link} target="blank">
           {show.venue}

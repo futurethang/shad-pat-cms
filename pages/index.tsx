@@ -1,25 +1,24 @@
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import { useState } from 'react'
 import { Footer, Nav } from '../components'
-import Shows from '../components/Shows'
-import styles from '../styles/Home.module.scss'
-import Socials from '../components/Socials';
+import UpcomingShows from '../components/UpcomingShows'
+import PastShows from '../components/PastShows'
+import Header from '../components/Header'
 
 const Home = () => {
   return (
-    <div className={styles.container}>
-      <Nav />
-      <header className={styles.header}>
-        <h1>
-          <img src="./shadpattwhtonblack.png" alt="Shadow Pattern" />
-        </h1>
-        <h3>Seattle Rock & Roll Band</h3>
-      </header>
-      <Socials />
+    <div>
+      <Header />
       <main>
-        <div className="shows">
-          <Shows></Shows>
-        </div>
+        <section className="shows">
+          <UpcomingShows />
+        </section>
+
+        <section>
+          <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3178066742/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/" seamless></iframe>
+        </section>
+
+        <section className="shows">
+          <PastShows />
+        </section>
       </main>
       <Footer />
     </div>

@@ -5,7 +5,7 @@ import {
   useSupabaseClient,
   Session,
 } from '@supabase/auth-helpers-react'
-import { Show } from './Shows'
+import { Show } from './UpcomingShows'
 // type Profiles = Database['public']['Tables']['profiles']['Row']
 
 export default function ShowForm({
@@ -97,11 +97,12 @@ export default function ShowForm({
   }
 
   async function updateShow() {
+    let bandsUpdate = typeof bands === 'string' ? bands.split(',') : bands
     const newShow = {
       showDate: new Date(showDate),
       venue,
       address,
-      bands: bands.split(','),
+      bands: bandsUpdate,
       posterURL,
       link,
     }
