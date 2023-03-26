@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-// import styles from '../styles/Show.module.scss'
+import styles from '../styles/Show.module.scss'
 import ShowForm from './ShowForm'
 import { Show } from './UpcomingShows'
 import { readableDate } from '../utils/dates'
@@ -13,6 +13,7 @@ export default function ShowInstance({ show }: { show: Show }) {
 
   useEffect(() => {
     downloadImage(show.posterURL)
+    console.log(show.bands)
   }, [])
 
   async function downloadImage(path: string) {
@@ -39,8 +40,8 @@ export default function ShowInstance({ show }: { show: Show }) {
   }
 
   return (
-    <div className='show'>
-      <img className='img' src={posterImgURL} alt={show.posterURL} />
+    <div className={styles.show}>
+      {show.posterURL ? <img className='img' src={posterImgURL} alt={show.posterURL} /> : null}
       <h3 className='date'>{readableDate(show.showDate)}</h3>
       <h2>
         <a href={show.link} target="blank">
@@ -48,7 +49,7 @@ export default function ShowInstance({ show }: { show: Show }) {
         </a>
       </h2>
       <h4>{show.address}</h4>
-      <h3>{show.bands}</h3>
+      <h3>{show.bands.join(", ")}</h3>
       {session ? (
         <button onClick={() => updateShow()}>
           {showUpdateForm ? 'close' : 'edit'}
@@ -61,3 +62,10 @@ export default function ShowInstance({ show }: { show: Show }) {
     </div>
   )
 }
+
+
+
+
+
+
+

@@ -8,8 +8,16 @@
     box-sizing: border-box;
     justify-content: space-around;
   }
+}
 
-  .link-text {
-    display: none;
+// media queries over 425px
+@media (min-width: 26rem) {
+  .social {
+    ul {
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+      justify-content: space-between;
+    }
   }
 }

@@ -1,4 +1,7 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBandcamp, faFacebook, faInstagram, faSoundcloud } from '@fortawesome/free-brands-svg-icons';
+
 import styles from '../styles/Socials.module.scss'
 
 export default function Nav() {
@@ -13,8 +16,7 @@ export default function Nav() {
               aria-label="Link to Instagram"
               title="Instagram"
             >
-              <i className="fab fa-instagram"></i>
-              <span className="link-text">Instagram</span>
+              <FontAwesomeIcon icon={faInstagram} size='2x' />
             </a>
           </li>
           <li>
@@ -24,8 +26,7 @@ export default function Nav() {
               aria-label="Link to Bandcamp Page"
               title="Bandcamp"
             >
-              <i className="fab fa-bandcamp"></i>
-              <span className="link-text">Bandcamp</span>
+              <FontAwesomeIcon icon={faBandcamp} size='2x' />
             </a>
           </li>
           <li>
@@ -35,8 +36,7 @@ export default function Nav() {
               aria-label="Link to Soundcloud Page"
               title="Soundcloud"
             >
-              <i className="fab fa-soundcloud"></i>
-              <span className="link-text">Soundcloud</span>
+              <FontAwesomeIcon icon={faSoundcloud} size='2x' />
             </a>
           </li>
           <li>
@@ -46,8 +46,7 @@ export default function Nav() {
               aria-label="Link to Facebook Page"
               title="Facebook"
             >
-              <i className="fab fa-facebook"></i>
-              <span className="link-text">Facebook</span>
+              <FontAwesomeIcon icon={faFacebook} size='2x' />
             </a>
           </li>
         </ul>

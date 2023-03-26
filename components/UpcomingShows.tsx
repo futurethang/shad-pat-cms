@@ -7,7 +7,7 @@ export interface Show {
   showDate: string
   venue: string
   address: string
-  bands: string
+  bands: string | Array<string>
   posterURL: string
   link: string
   id: string
@@ -52,7 +52,7 @@ export default function UpcomingShows() {
 
   function futureShowsRender() {
     return (
-      <div>
+      <div className='shows'>
         {futureShows.length > 0 ? (
           futureShows.map((show) => {
             return <Show key={show.id} show={show}></Show>

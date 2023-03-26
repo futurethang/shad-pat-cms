@@ -207,7 +207,7 @@ export default function ShowForm({
                 updateShow()
               }}
             >
-              Edit Show
+              Save Edits
             </button>
           )}
         </form>
