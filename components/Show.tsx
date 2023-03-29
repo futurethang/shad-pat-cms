@@ -49,7 +49,7 @@ export default function ShowInstance({ show }: { show: Show }) {
         </a>
       </h2>
       <h4>{show.address}</h4>
-      <h3>{show.bands.join(", ")}</h3>
+      <h3>{typeof show.bands !== 'string' ? show.bands.join(", ") : show.bands}</h3>
       {session ? (
         <button onClick={() => updateShow()}>
           {showUpdateForm ? 'close' : 'edit'}

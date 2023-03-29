@@ -40,7 +40,7 @@ export default function ShowForm({
     showDate: string
     venue: string
     address: string
-    bands: string
+    bands: string | Array<string>
     posterURL: string
     link: string
   }) {
@@ -52,7 +52,7 @@ export default function ShowForm({
         showDate: new Date(showDate),
         venue,
         address,
-        bands: bands.split(','),
+        bands: typeof bands === 'string' ? bands.split(',') : bands,
         posterURL,
         link,
       }
