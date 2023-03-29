@@ -4,16 +4,17 @@ import styles from '../styles/Show.module.scss'
 import ShowForm from './ShowForm'
 import { Show } from './UpcomingShows'
 import { readableDate } from '../utils/dates'
+import { updateFor } from 'typescript'
 
 export default function ShowInstance({ show }: { show: Show }) {
   const session = useSession()
   const supabase = useSupabaseClient()
   const [posterImgURL, setPosterImgURL] = useState('')
   const [showUpdateForm, setShowUpdateForm] = useState(false)
+  const [edit, setEdit] = useState(false)
 
   useEffect(() => {
     downloadImage(show.posterURL)
-    console.log(show.bands)
   }, [])
 
   async function downloadImage(path: string) {
@@ -35,7 +36,7 @@ export default function ShowInstance({ show }: { show: Show }) {
     }
   }
 
-  async function updateShow() {
+  async function updateFormView() {
     setShowUpdateForm(!showUpdateForm)
   }
 
@@ -51,13 +52,13 @@ export default function ShowInstance({ show }: { show: Show }) {
       <h4>{show.address}</h4>
       <h3>{typeof show.bands !== 'string' ? show.bands.join(", ") : show.bands}</h3>
       {session ? (
-        <button onClick={() => updateShow()}>
+        <button onClick={() => updateFormView()}>
           {showUpdateForm ? 'close' : 'edit'}
         </button>
       ) : null}
       {/* todo: the form needs to appear with the current date already inside it */}
       {showUpdateForm ? (
-        <ShowForm session={session!} edit data={show}></ShowForm>
+        <ShowForm edit data={show} updateFormView={updateFormView}></ShowForm>
       ) : null}
     </div>
   )

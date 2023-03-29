@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react'
-import Avatar from './Avatar'
 import {
   useUser,
   useSupabaseClient,
-  Session,
 } from '@supabase/auth-helpers-react'
 import { Show } from './UpcomingShows'
-// type Profiles = Database['public']['Tables']['profiles']['Row']
+import styles from '../styles/Show.module.scss'
+
 
 export default function ShowForm({
-  session,
-  edit,
   data,
+  edit,
+  updateFormView
 }: {
-  session: Session
-  edit: boolean
   data: Show | undefined
+  edit: boolean
+  updateFormView?: () => void
 }) {
   const supabase = useSupabaseClient()
   const user = useUser()
@@ -117,7 +116,8 @@ export default function ShowForm({
       if (error) {
         throw error
       }
-      console.log(responseData)
+      alert("Show Updated!")
+      updateFormView ? updateFormView() : null
     } catch (error) {
       console.error(error)
     }
@@ -125,7 +125,7 @@ export default function ShowForm({
 
   return (
     <div className="form-widget">
-      <div className="add-show">
+      <div className={styles.addShow}>
         <h2>{!edit ? `Add a` : `Edit `} Show</h2>
         <form id="add-show">
           <label htmlFor="date">Date</label>
