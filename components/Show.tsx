@@ -4,7 +4,7 @@ import styles from '../styles/Show.module.scss'
 import ShowForm from './ShowForm'
 import { Show } from './UpcomingShows'
 import { readableDate } from '../utils/dates'
-import { updateFor } from 'typescript'
+import Image from 'next/image'
 
 export default function ShowInstance({ show }: { show: Show }) {
   const session = useSession()
@@ -42,7 +42,7 @@ export default function ShowInstance({ show }: { show: Show }) {
 
   return (
     <div className={styles.show}>
-      {show.posterURL ? <img className='img' src={posterImgURL} alt={show.posterURL} loading='lazy' /> : null}
+      {show.posterURL ? <Image className='img' src={posterImgURL} alt={show.posterURL} loading='lazy' /> : null}
       <h3 className='date'>{readableDate(show.showDate)}</h3>
       <h2>
         <a href={show.link} target="blank">
