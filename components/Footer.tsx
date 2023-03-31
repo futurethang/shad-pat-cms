@@ -8,7 +8,7 @@ export default function Footer() {
           email
         </a>
       </div>
-      <div>copyright © 2022 Shadow Pattern</div>
+      <div>copyright © 2023 Shadow Pattern</div>
     </footer>
   )
 }

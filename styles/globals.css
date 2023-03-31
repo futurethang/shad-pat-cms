@@ -10,6 +10,11 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+body {
+  background-color: #000;
+  color: #fbfbfb;
+}
+
 nav section {
   display: flex;
   justify-content: space-between;
@@ -103,18 +108,5 @@ header img {
 @media only screen and (min-width: 425px) {
   .show img {
     display: inherit;
-  }
-}
-
-@media only screen and (min-width: 600px) {}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-
-  body {
-    color: white;
-    background: black;
   }
 }
