@@ -44,7 +44,6 @@ const Home = () => {
       <DefaultSeo
         {...SEO}
       />
-      <p>Simple Usage</p>
       <Header />
       <main>
         <section className="shows">

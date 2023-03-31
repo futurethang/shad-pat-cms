@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import Image from 'next/image'
 type Profiles = {
   avatar_url: string
 }
@@ -73,7 +74,7 @@ export default function Avatar({
   return (
     <div>
       {avatarUrl ? (
-        <img
+        <Image
           src={avatarUrl}
           alt="Avatar"
           className="avatar image"

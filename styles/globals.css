@@ -10,6 +10,11 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+body {
+  background-color: #000;
+  color: #fbfbfb;
+}
+
 nav section {
   display: flex;
   justify-content: space-between;
