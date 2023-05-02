@@ -66,6 +66,14 @@ export default function ShowForm({
     }
   }
 
+  function getFilenameFromPath(path: string) {
+    // Remove the fakepath prefix, if present
+    let filename = path.replace(/^C:\\fakepath\\/i, '');
+    
+    // Return the filename without the path or extension
+    return filename;
+  }
+
   const uploadPoster: React.ChangeEventHandler<HTMLInputElement> = async (
     event,
   ) => {
@@ -76,9 +84,7 @@ export default function ShowForm({
       }
 
       const file = event.target.files[0]
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${showDate}-${venue}.${fileExt}`
-      const filePath = `${fileName}`
+      const filePath = getFilenameFromPath(event.target.value)
       setPosterURL(filePath)
       let { error: uploadError } = await supabase.storage
         .from('posters')
