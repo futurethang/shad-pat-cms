@@ -51,12 +51,26 @@ iframe {
   margin: auto;
   padding: 2rem;
 }
-/* 
-header img {
+
+.carousel {
+  position: relative;
+  width: 50%;
+  height: 400px;
+}
+
+.carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 40rem;
-  max-height: 460px;
-} */
+  height: 100%;
+  opacity: 0;
+  /* transition: opacity ${transitionDuration}ms ease-in-out; */
+}
+
+.carousel-image.active {
+  opacity: 1;
+}
 
 .main {
   min-height: 100vh;
@@ -103,6 +117,27 @@ header img {
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+}
+
+@media (max-width: 600px) {
+
+  .carousel {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+  }
+
+  .carousel-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .carousel-image.active {
+    opacity: 1;
+  }
 }
 
 @media only screen and (min-width: 425px) {

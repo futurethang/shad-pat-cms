@@ -131,6 +131,10 @@
     width: 100%;
     flex-direction: column;
   }
+  .hero {
+    flex-direction: column;
+    gap: 2rem;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

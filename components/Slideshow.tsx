@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 import Image from 'next/image';
 import img1 from '../public/slideshow/slide-01.webp';
@@ -15,12 +16,15 @@ const images = [img1, img2, img3, img4, img5, img6, img7, img8];
 const SlideShow = ({ interval = 5000, transitionDuration = 1000 }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const randomLeftValues = useRef<number[]>([]);
+    const isSmallWindow = useWindowWidth(600);
 
-    // Generate random left values only once
-    if (randomLeftValues.current.length === 0) {
-        randomLeftValues.current = images.map(() => Math.floor(Math.random() * 301));
-    }
-
+    useEffect(() => {
+        if (isSmallWindow) {
+            randomLeftValues.current = images.map(() => 0);
+        } else {
+            randomLeftValues.current = images.map(() => Math.floor(Math.random() * 301));
+        }
+    }, [isSmallWindow]);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -38,31 +42,12 @@ const SlideShow = ({ interval = 5000, transitionDuration = 1000 }) => {
                     <div
                         key={index}
                         className={`carousel-image ${index === activeIndex ? 'active' : ''}`}
-                        style={{ transitionDuration: `${transitionDuration}ms`, left: `${randomLeftValues.current[index]}px` }}
+                        style={{ transitionDuration: `${transitionDuration}ms`, left: `${randomLeftValues.current[index]}px`, transition: `opacity ${transitionDuration}ms ease-in-out` }}
                     >
                         <Image src={image} alt={`Slide ${index + 1}`} quality={90} height={500} />
                     </div>
                 )
             })}
-            <style jsx>{`
-          .carousel {
-            position: relative;
-            max-width: 50%;
-            height: 100%;
-          }
-          .carousel-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity ${transitionDuration}ms ease-in-out;
-          }
-          .carousel-image.active {
-            opacity: 1;
-          }
-        `}</style>
         </div>
     );
 };
