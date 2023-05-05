@@ -51,12 +51,12 @@ iframe {
   margin: auto;
   padding: 2rem;
 }
-
+/* 
 header img {
   width: 100%;
   max-width: 40rem;
   max-height: 460px;
-}
+} */
 
 .main {
   min-height: 100vh;
