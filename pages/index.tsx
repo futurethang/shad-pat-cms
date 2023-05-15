@@ -44,21 +44,29 @@ const Home = () => {
       <DefaultSeo
         {...SEO}
       />
-      <Header />
-      <main>
-        <section className="shows">
-          <UpcomingShows />
-        </section>
+      <div className="parallax-container">
+        <div className="parallax-background">
+          <img src="/sidewall-bg.webp" alt="Background Image" />
+        </div>
+        <div className="content">
+          <Header />
+          <main>
+            <section className="shows">
+              <UpcomingShows />
+            </section>
 
-        <section>
-          <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3178066742/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/" seamless></iframe>
-        </section>
+            <section>
+              <iframe src="https://bandcamp.com/EmbeddedPlayer/album=3178066742/size=large/bgcol=ffffff/linkcol=0687f5/artwork=none/transparent=true/" seamless></iframe>
+            </section>
 
-        <section className="shows">
-          <PastShows />
-        </section>
-      </main>
-      <Footer />
+            <section className="shows">
+              <PastShows />
+            </section>
+          </main>
+          <Footer />
+        </div>
+      </div>
+
     </div>
   )
 }

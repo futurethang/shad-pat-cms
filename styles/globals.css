@@ -15,6 +15,39 @@ body {
   color: #fbfbfb;
 }
 
+.parallax-container {
+  height: 100vh;
+  /* Adjust this value depending on your requirements */
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 1px;
+}
+
+.parallax-background {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 150%; /* Limit width to half of the page */
+  bottom: 0;
+  transform-origin: 0 0;
+  transform: translateZ(-1px) scale(2); /* Adjust the scale value to control the speed difference */
+}
+
+.parallax-background img {
+  width: 100%; 
+  height: auto;
+  position: absolute;
+  right: 0;
+  repeat: repeat-y;
+  opacity: 40%;
+}
+
+.content {
+  position: relative;
+  /* Add any other styling you want for the content */
+}
+
+
 nav section {
   display: flex;
   justify-content: space-between;
