@@ -43,7 +43,7 @@ export default function ShowInstance({ show }: { show: Show }) {
   return (
     <div className={styles.show}>
       <div className={styles.imgContainer}>
-        {show.posterURL ? <Image className='img' src={posterImgURL} alt={show.posterURL} fill loading='lazy' /> : null}
+        {show.posterURL ? <Image className='img' src={posterImgURL} alt={show.posterURL} fill /> : null}
       </div>
       <h3 className='date'>{readableDate(show.showDate)}</h3>
       <h2>
