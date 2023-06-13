@@ -138,7 +138,7 @@ export default function Account({ session }: { session: Session }) {
       </div>
 
       <div className="add-show">
-        <ShowForm edit={true} data={undefined}></ShowForm>
+        <ShowForm edit={false} data={undefined}></ShowForm>
       </div>
     </div>
   )
